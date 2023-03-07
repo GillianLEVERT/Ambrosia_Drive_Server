@@ -48,5 +48,5 @@ end
 
 
 gem "faker", "~> 3.1"
-
+gem 'sendinblue'
 gem "rspec", "~> 3.12"
