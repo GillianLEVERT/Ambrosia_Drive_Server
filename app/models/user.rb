@@ -28,7 +28,7 @@ class User < ApplicationRecord
   
   # returns the magic link which is to be included in the email
   def login_link
-    Rails.application.routes.url_helpers.api_sessions_create_url(login_token: login_token, host: 'localhost:3000')
+    Rails.application.routes.url_helpers.api_sessions_create_url(login_token: login_token, host: 'localhost:5173')
   end
 
   # generates auth token to authenticate the further request once user is authorized
