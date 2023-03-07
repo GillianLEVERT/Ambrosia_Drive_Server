@@ -68,13 +68,13 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address => ‘smtp-relay.sendinblue.com’,
-    :domain => 'https://ambrosia-drive-server.vercel.app/ ',
-    :port => 587,
+    :address => 'smtp-relay.sendinblue.com',
+    :domain => 'https://localhost/ ',
+    :port => 3000,
     :user_name => ENV['SENDINBLUE_LOGIN'],
     :password => ENV['SENDINBLUE_PWD'],
-    :authentication => plain,
+    :authentication => 'plain',
     :enable_starttls_auto => true
   }
 end
-end
+
