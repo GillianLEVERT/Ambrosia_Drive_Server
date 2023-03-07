@@ -94,6 +94,7 @@ GEM
     irb (1.6.2)
       reline (>= 0.3.0)
     json (2.6.3)
+    jwt (2.7.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -127,6 +128,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.3)
+    rack-cors (2.0.0)
+      rack (>= 2.0.0)
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.4.2)
@@ -174,6 +177,7 @@ GEM
     sendinblue (2.4)
       httparty
       json
+    table_print (1.5.7)
     thor (1.2.1)
     timeout (0.3.2)
     tzinfo (2.0.6)
@@ -192,11 +196,14 @@ DEPENDENCIES
   debug
   dotenv-rails
   faker (~> 3.1)
+  jwt (~> 2.7)
   pg (~> 1.1)
   puma (~> 5.0)
+  rack-cors (~> 2.0)
   rails (~> 7.0.4, >= 7.0.4.2)
   rspec (~> 3.12)
   sendinblue
+  table_print (~> 1.5)
   tzinfo-data
 
 RUBY VERSION
