@@ -49,4 +49,5 @@ end
 
 gem "faker", "~> 3.1"
 gem 'sendinblue'
+gem 'dotenv-rails'
 gem "rspec", "~> 3.12"
