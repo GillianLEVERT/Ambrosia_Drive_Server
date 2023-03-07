@@ -50,3 +50,7 @@ end
 gem "faker", "~> 3.1"
 
 gem "rspec", "~> 3.12"
+
+gem "table_print", "~> 1.5"
+
+gem "jwt", "~> 2.7"
