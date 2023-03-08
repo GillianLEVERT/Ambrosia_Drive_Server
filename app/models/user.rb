@@ -1,12 +1,21 @@
 class User < ApplicationRecord
   require 'json_web_token'
+
+  has_one :cart, dependent: :destroy
+  has_one :store, foreign_key: :admin_id
+  
+  validates :store, presence: true, if: :admin?
   
   validates :email,
   format: { with: URI::MailTo::EMAIL_REGEXP },
   uniqueness: { case_sensitive: false },
   presence: true
-
+  
   before_save { self.email = email.downcase }
+
+  def admin?
+    admin
+  end
 
   def send_magic_link
     generate_login_token
