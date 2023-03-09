@@ -8,7 +8,6 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.integer :volume_type
       t.float :price
       t.string :img_url
-      t.belongs_to :shop, index: true
       t.belongs_to :store_shelf, index: true
       t.timestamps
     end
