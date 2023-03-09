@@ -54,11 +54,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_104238) do
     t.integer "volume_type"
     t.float "price"
     t.string "img_url"
-    t.bigint "shop_id"
     t.bigint "store_shelf_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["shop_id"], name: "index_products_on_shop_id"
     t.index ["store_shelf_id"], name: "index_products_on_store_shelf_id"
   end
 

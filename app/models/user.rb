@@ -1,10 +1,13 @@
 class User < ApplicationRecord
   require 'json_web_token'
 
+  after_create do |user|
+    self.cart ||= Cart.create(user: user)
+  end
+
   has_one :cart, dependent: :destroy
-  has_one :store, foreign_key: :admin_id
-  
-  validates :store, presence: true, if: :admin?
+  has_one :store
+
   
   validates :email,
   format: { with: URI::MailTo::EMAIL_REGEXP },
@@ -41,19 +44,19 @@ class User < ApplicationRecord
   end
 
   # generates auth token to authenticate the further request once user is authorized
-def generate_auth_token
-  self.login_token = nil
-  self.login_token_verified_at = Time.now
-  self.save
+  def generate_auth_token
+    self.login_token = nil
+    self.login_token_verified_at = Time.now
+    self.save
 
-  payload = {
-    user_id: id,
-    login_token_verified_at: login_token_verified_at,
-    exp: 1.day.from_now.to_i
-  }
+    payload = {
+      user_id: id,
+      login_token_verified_at: login_token_verified_at,
+      exp: 1.day.from_now.to_i
+    }
 
-  generate_token(payload)
-end
+    generate_token(payload)
+  end
   
   private
   
