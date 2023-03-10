@@ -1,13 +1,10 @@
 class User < ApplicationRecord
   require 'json_web_token'
 
-  after_create do |user|
-    self.cart ||= Cart.create(user: user)
-  end
-
+  
   has_one :cart, dependent: :destroy
   has_one :store
-
+  
   
   validates :email,
   format: { with: URI::MailTo::EMAIL_REGEXP },
@@ -15,9 +12,9 @@ class User < ApplicationRecord
   presence: true
   
   before_save { self.email = email.downcase }
-
-  def admin?
-    admin
+  
+  after_create do |user|
+    self.cart ||= Cart.create(user: user)
   end
 
   def send_magic_link
