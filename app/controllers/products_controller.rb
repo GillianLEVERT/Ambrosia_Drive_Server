@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all.includes(:store_shelf, :store)
-    if params[:search]
+    if params[:name]
       @products = @products.where("name LIKE ?", "%#{params[:name]}%")
     end
   
