@@ -4,8 +4,8 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     @products = Product.all.includes(:store_shelf, :store)
-    if params[:name]
-      @products = @products.where("name LIKE ?", "%#{params[:name]}%")
+    if params[:name].downcase
+      @products = @products.where("name ILIKE ?", "%#{params[:name]}%")
     end
   
     render json: @products, include: {
