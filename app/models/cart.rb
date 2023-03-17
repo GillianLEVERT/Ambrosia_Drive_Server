@@ -4,4 +4,8 @@ class Cart < ApplicationRecord
   has_many :products, through: :cart_items
 
   validates :user, presence: true
+
+  def total_price
+    cart_items.sum {|item| item.product.price}
+  end
 end
