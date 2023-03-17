@@ -1,9 +1,10 @@
 class CartItemsController < ApplicationController
-  before_action :set_cart_item, only: %i[ show update destroy ]
+  before_action :set_cart_item, only: %i[ show update]
+  before_action :authenticate_request!
 
   # GET /cart_items
   def index
-    @cart_items = CartItem.all
+    @cart_items = CartItem.where(user_id: @current_user.id)
 
     render json: @cart_items
   end
@@ -35,7 +36,10 @@ class CartItemsController < ApplicationController
 
   # DELETE /cart_items/1
   def destroy
+    @cart_item = CartItem.find_by(cart_item_params)
     @cart_item.destroy
+
+    render json: { message: "Le produit a été retiré du panier." }
   end
 
   private
@@ -46,6 +50,6 @@ class CartItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cart_item_params
-      params.fetch(:cart_item, {})
+      params.require(:cart_item).permit(:product_id).merge(cart_id: @current_user.cart.id)
     end
 end
