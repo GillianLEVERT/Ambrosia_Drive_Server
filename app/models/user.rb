@@ -37,7 +37,13 @@ class User < ApplicationRecord
   
   # returns the magic link which is to be included in the email
   def login_link
-    Rails.application.routes.url_helpers.api_sessions_create_url(login_token: login_token, host: 'localhost:5173')
+    if Rails.env.production?
+      host = 'https://ambrosia-drive-git-development-gillianlevert.vercel.app'
+    else
+      host = 'localhost:5173'
+    end
+    
+    Rails.application.routes.url_helpers.api_sessions_create_url(login_token: login_token, host: host)
   end
 
   # generates auth token to authenticate the further request once user is authorized
