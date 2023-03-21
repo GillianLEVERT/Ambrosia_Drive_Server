@@ -6,6 +6,6 @@ class Cart < ApplicationRecord
   validates :user, presence: true
 
   def total_price
-    cart_items.sum {|item| item.product.price}
+    cart_items.sum {|item| item.product.price * item.quantity}
   end
 end

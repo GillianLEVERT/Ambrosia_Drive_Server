@@ -5,7 +5,6 @@ class CartsController < ApplicationController
   # GET /carts
   def index
     @cart = Cart.includes(:cart_items => :product).find(@current_user.cart.id)
-    @total = @cart.cart_items.sum {|item| item.product.price}
 
     render json: @cart, include: { cart_items: { include: :product }}, methods: [:total_price]
   end
