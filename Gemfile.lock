@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/stripe/stripe-ruby
+  revision: 980b7b011f6fbff276ecadce5dd884e00669724f
+  specs:
+    stripe (8.3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -203,6 +209,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.2)
   rspec (~> 3.12)
   sendinblue
+  stripe!
   table_print (~> 1.5)
   tzinfo-data
 

@@ -57,3 +57,5 @@ gem "table_print", "~> 1.5"
 gem "jwt", "~> 2.7"
 
 gem "rack-cors", "~> 2.0"
+
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
