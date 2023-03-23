@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   resources :products
   scope '/paiement' do
     post 'create', to: 'checkout#create', as: 'checkout_create'
-    get 'succes', to: 'checkout#success', as: 'checkout_success'
-    get 'annulation', to: 'checkout#cancel', as: 'checkout_cancel'
+    post 'success', to: 'checkout#success', as: 'checkout_success'
   end
   namespace :api do
     post 'authentication/create'

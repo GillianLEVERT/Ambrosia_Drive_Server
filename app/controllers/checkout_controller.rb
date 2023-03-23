@@ -1,7 +1,6 @@
-
-
 class CheckoutController < ApplicationController
   before_action :authenticate_request!
+
 
 def create
 
@@ -21,12 +20,19 @@ def create
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:5173?success=true',     
-    cancel_url: 'http://localhost:5173?canceled=true',
+    success_url:  'http://localhost:5173/checkout?success=true',     
+    cancel_url: 'http://localhost:5173/checkout?success=false',
   )
   session_url = session.url
-  render json: { session_url: session_url }
+  session_id = session.id 
+  render json: { session_url: session_url, session_id: session_id }
   
 end
+
+def success
+  session = Stripe::Checkout::Session.retrieve(params[:session_id])
+  order = Order.create(user: @current_user) if ( @current_user.cart.cart_items.size >= 1 && session.payment_status = "paid" )
+end
+
 
 end
