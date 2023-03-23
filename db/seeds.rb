@@ -45,7 +45,7 @@ Product.destroy_all
     volume: Faker::Number.between(from: 1, to: 10),
     volume_type: rand(4),
     price: Faker::Commerce.price,
-    img_url: Faker::LoremFlickr.image(size: "300x300"),
+    img_url: "https://loremflickr.com/#{rand(250..300)}/#{rand(250..300)}/vegetable",
     store_shelf: StoreShelf.all.sample,
   )
   end
