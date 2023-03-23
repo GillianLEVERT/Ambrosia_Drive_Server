@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_104238) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_20_183234) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_104238) do
     t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity", default: 1
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
@@ -54,11 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_104238) do
     t.integer "volume_type"
     t.float "price"
     t.string "img_url"
-    t.bigint "shop_id"
     t.bigint "store_shelf_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["shop_id"], name: "index_products_on_shop_id"
     t.index ["store_shelf_id"], name: "index_products_on_store_shelf_id"
   end
 

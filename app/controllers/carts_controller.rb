@@ -1,11 +1,12 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[ show update destroy ]
+  before_action :authenticate_request!
 
   # GET /carts
   def index
-    @carts = Cart.all
+    @cart = Cart.includes(:cart_items => :product).find(@current_user.cart.id)
 
-    render json: @carts
+    render json: @cart, include: { cart_items: { include: :product }}, methods: [:total_price]
   end
 
   # GET /carts/1

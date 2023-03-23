@@ -1,59 +1,51 @@
 require 'faker'
-# Création de 5 magasins
-5.times do
-    Store.create!(
-      name: Faker::Company.name,
-      image_url: Faker::LoremPixel.image(size: "300x300")
-    )
-  end
+
+User.destroy_all
+Store.destroy_all
+StoreShelf.destroy_all
+Product.destroy_all
+
 
   5.times do
-    store.admins.create!(
-      name: Faker::Name.name,
+    User.create!(
       email: Faker::Internet.email,
     )
   end
 
-  
+  User.create!(
+    email: 'driveambrosia@gmail.com',
+    admin: true,
+  )
+
+
+  Store.create!(
+    name: Faker::Company.name,
+    img_url: Faker::LoremFlickr.image(size: "300x300"),
+    admin: User.find_by(email:'driveambrosia@gmail.com'),
+  )
+
+
+
+
   # Création de 10 rayons pour chaque magasin
-  Store.all.each do |store|
-    10.times do
-      store.store_shelves.create!(
-        name: Faker::Commerce.department,
-        description: Faker::Lorem.sentence
-      )
-    end
-  end
-  
-  # Création de 15 paniers
-  15.times do
-    Cart.create!(
-      name: Faker::Commerce.product_name,
-      price: Faker::Commerce.price,
-      description: Faker::Lorem.sentence
-      quantity: Faker::Number.between(from: 1, to: 100),
-      volume: Faker::Number.between(from: 1, to: 10),
-      volume_type: ['litres', 'kilogrammes', 'pièces'].sample
+  10.times do
+    StoreShelf.create!(
+      name: Faker::Commerce.department,
+      store: Store.all.sample
     )
   end
-  
-  # Création de 20 utilisateurs
-  20.times do
-    User.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-    )
-  end
-  
-  # Création de 40 produits
+
+
+# Création de 40 produits
   40.times do
-    Product.create!(
-      name: Faker::Commerce.product_name,
-      price: Faker::Commerce.price,
-      description: Faker::Lorem.sentence,
-      image_url: Faker::LoremPixel.image(size: "300x300"),
-      quantity: Faker::Number.between(from: 1, to: 100),
-      volume: Faker::Number.between(from: 1, to: 10),
-      volume_type: ['litres', 'kilogrammes', 'pièces'].sample
-    )
+  Product.create!(
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.sentence,
+    quantity: Faker::Number.between(from: 1, to: 100),
+    volume: Faker::Number.between(from: 1, to: 10),
+    volume_type: rand(4),
+    price: Faker::Commerce.price,
+    img_url: Faker::LoremFlickr.image(size: "300x300"),
+    store_shelf: StoreShelf.all.sample,
+  )
   end

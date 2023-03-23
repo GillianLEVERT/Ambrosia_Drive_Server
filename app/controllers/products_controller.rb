@@ -3,9 +3,15 @@ class ProductsController < ApplicationController
 
   # GET /products
   def index
-    @products = Product.all
-
-    render json: @products
+    @products = Product.all.includes(:store_shelf, :store)
+    if params[:name].downcase
+      @products = @products.where("name ILIKE ?", "%#{params[:name]}%")
+    end
+  
+    render json: @products, include: {
+    store_shelf: { only: [:name] },
+    store: { only: [:name] }
+  }
   end
 
   # GET /products/1
