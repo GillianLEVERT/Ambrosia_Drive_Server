@@ -31,7 +31,13 @@ end
 
 def success
   session = Stripe::Checkout::Session.retrieve(params[:session_id])
-  order = Order.create(user: @current_user) if ( @current_user.cart.cart_items.size >= 1 && session.payment_status = "paid" )
+  if @current_user.cart.cart_items.size >= 1 && session.payment_status == "paid"
+    order = Order.create(user: @current_user)
+    @current_user.cart.cart_items.destroy_all
+    render json: order, status: :created
+  else
+    render json: { error: "Error in creating order" }, status: :unprocessable_entity
+  end
 end
 
 
