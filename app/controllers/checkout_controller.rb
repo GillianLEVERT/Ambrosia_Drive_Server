@@ -20,8 +20,8 @@ def create
       },
     ],
     mode: 'payment',
-    success_url:  'http://localhost:5173/checkout?success=true',     
-    cancel_url: 'http://localhost:5173/checkout?success=false',
+    success_url:  'https://ambrosiaserver.fly.dev/checkout?success=true',     
+    cancel_url: 'https://ambrosiaserver.fly.dev/checkout?success=false',
   )
   session_url = session.url
   session_id = session.id 
