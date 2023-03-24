@@ -1,7 +1,6 @@
-
-
 class CheckoutController < ApplicationController
   before_action :authenticate_request!
+
 
 def create
 
@@ -21,12 +20,25 @@ def create
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:5173?success=true',     
-    cancel_url: 'http://localhost:5173?canceled=true',
+    success_url:  'https://ambrosiaserver.fly.dev/checkout?success=true',     
+    cancel_url: 'https://ambrosiaserver.fly.dev/checkout?success=false',
   )
   session_url = session.url
-  render json: { session_url: session_url }
+  session_id = session.id 
+  render json: { session_url: session_url, session_id: session_id }
   
 end
+
+def success
+  session = Stripe::Checkout::Session.retrieve(params[:session_id])
+  if @current_user.cart.cart_items.size >= 1 && session.payment_status == "paid"
+    order = Order.create(user: @current_user)
+    @current_user.cart.cart_items.destroy_all
+    render json: order, status: :created
+  else
+    render json: { error: "Error in creating order" }, status: :unprocessable_entity
+  end
+end
+
 
 end
